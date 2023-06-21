@@ -16,10 +16,10 @@ provider "aws" {
 }
 
 resource "aws_instance" "myec2" {
-   ami = "ami-083eed19fc801d7a4"
+   ami = "ami-05842f1afbf311a43"
    instance_type = "t2.micro"
  #  security_groups = [ ]
-   key_name = "Ansible"
+   key_name = "jenkins"
   tags = {
     Name = "HelloWorld -AKASH"
   }
