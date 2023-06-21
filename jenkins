@@ -6,9 +6,7 @@ pipeline {
        AWS_SECRET_ACCESS_KEY = credentials('ACCESS_KEY')
     }
 
-    tools {
-     terraform 'terraform'
-    }
+
 
     stages {
       stage('fetch_latest_code') {
