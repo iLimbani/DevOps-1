@@ -7,7 +7,6 @@ ingress {
   protocol          = "tcp"
   cidr_blocks = ["0.0.0.0/0"]
 }
-
 ingress{
 description =" " allow port 8080 - inbound"
   from_port         = 8080
@@ -15,7 +14,6 @@ description =" " allow port 8080 - inbound"
   protocol          = "tcp"
   cidr_blocks = ["0.0.0.0/0"]
   }
-
 egress{
 description = " outbound"
   from_port         = 0
@@ -23,5 +21,4 @@ description = " outbound"
   protocol          = "-1"
   cidr_blocks = ["0.0.0.0/0"]
 }
-
 }
