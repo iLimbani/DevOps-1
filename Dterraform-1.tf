@@ -46,11 +46,15 @@ resource "aws_security_group_rule" "example3" {
 resource "aws_instance" "myec2" {
    ami = "ami-05842f1afbf311a43"
    instance_type = "t2.micro"
-   security_groups = [aws_security_group_rule.example1.id]
-   security_groups = [aws_security_group_rule.example2.id]
-   security_groups = [aws_security_group_rule.example3.id]
+    vpc_security_group_ids = [aws_security_group.allow_secid.id]
+//   security_groups = [aws_security_group_rule.example1.id]
+//   security_groups = [aws_security_group_rule.example2.id]
+  // security_groups = [aws_security_group_rule.example3.id]
    key_name = "jenkins"
   tags = {
     Name = "Docker VM"
   }
+provisioner "local-exec" {
+command="echo $(aws_instance.myec2.public_ip] >> /etc/ansible/hosts"
+}
 }
