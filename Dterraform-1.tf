@@ -18,7 +18,7 @@ provider "aws" {
 resource "aws_instance" "myec2" {
    ami = "ami-05842f1afbf311a43"
    instance_type = "t2.micro"
-   # vpc_security_group_ids = [aws_security_group.allow_tls.id]
+   vpc_security_group_ids = [aws_security_group.allow_tls.id]
    key_name = "jenkins"
   tags = {
     Name = "Docker VM"
