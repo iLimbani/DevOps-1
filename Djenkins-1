@@ -29,5 +29,11 @@ pipeline {
         }
         
       }
-    } 
+
+    stage ("Execute playbook") {
+        steps{
+                ansiblePlaybook playbook: 'Dansible.yml'
+            }
+        }
+} 
   }
