@@ -23,6 +23,14 @@ key_name = "jenkins"
   tags = {
     Name = "Docker VM"
   }
+  provisioner "remote-exec" {
+    inline = [
+      "sudo apt-get update",
+      "sudo apt-get install -y jenkins",
+      "sudo apt-get install -y docker",
+      "sudo apt-get install -y ansible",
+    ]
+  }
 }
 
 resource "aws_security_group" "allow_tls" {
@@ -50,13 +58,3 @@ resource "aws_security_group" "allow_tls" {
   }
 }
 
-terraform {
-  required_providers {
-    docker = {
-      source = "kreuzwerker/docker"
-      version = "~> 3.0.1"
-    }
-  }
-}
-
-provider "docker" {}
