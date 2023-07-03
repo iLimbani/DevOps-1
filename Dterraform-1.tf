@@ -23,12 +23,18 @@ key_name = "jenkins"
   tags = {
     Name = "Docker VM"
   }
-  provisioner "remote-exec" {
+ 
+ connection {
+    type     = "ssh"
+    user     = "root"
+    password = var.root_password
+    host     = self.public_ip
+  }
+
+provisioner "remote-exec" {
     inline = [
       "sudo apt-get update",
-      "sudo apt-get install -y jenkins",
       "sudo apt-get install -y docker",
-      "sudo apt-get install -y ansible",
     ]
   }
 }
