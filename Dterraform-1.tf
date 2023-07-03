@@ -33,8 +33,8 @@ key_name = "jenkins"
 
 provisioner "remote-exec" {
     inline = [
-      "sudo apt-get update",
-      "sudo apt-get install -y docker",
+      "sudo apt-get update"
+
     ]
   }
 }
