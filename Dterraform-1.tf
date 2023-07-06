@@ -23,21 +23,7 @@ key_name = "jenkins"
   tags = {
     Name = "Docker VM"
   }
- 
- connection {
-    type     = "ssh"
-    user     = "root"
-    password = var.root_password
-    host     = self.public_ip
-  }
-
-provisioner "remote-exec" {
-    inline = [
-      "sudo apt-get update"
-
-    ]
-  }
-}
+ }
 
 resource "aws_security_group" "allow_tls" {
   name = "terraform-sg"
@@ -62,10 +48,5 @@ resource "aws_security_group" "allow_tls" {
     protocol          = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
-}
-
-variable "root_password" {
-  type        = string
-  description = "The root password for the VM"
 }
 
