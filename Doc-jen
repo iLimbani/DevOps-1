@@ -16,11 +16,10 @@ pipeline {
 
 stage('push docker image to hub') {
         steps {
-          script{
+          
             withCredentials([string(credentialsId: 'dockerhub-pwd', variable: 'dockerhubpwd')]){
             sh 'docker login -u ilimbani -p ${dockerhubpwd}'
-          }
-          sh 'docker push ilimbani/dmain'
+                  sh 'docker push ilimbani/dmain'
           }
 
 
