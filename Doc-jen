@@ -29,4 +29,4 @@ stage('push docker image to hub') {
 }
 }
 }
-
+}
