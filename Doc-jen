@@ -1,0 +1,30 @@
+pipeline {
+    agent any
+     
+    stages {
+      stage('fetch_latest_code') {
+        steps {
+        git branch: 'main', url: 'https://github.com/iLimbani/DevOps-1.git'
+ }
+      }
+           
+      stage('Build docker image') {
+        steps {
+          sh 'docker build -t ilimbani/dmain .'
+          }
+      }
+
+stage('push docker image to hub') {
+        steps {
+          script{
+            withCredentials([string(credentialsId: 'dockerhub-pwd', variable: 'dockerhubpwd')]){
+            sh 'docker login -u ilimbani -p ${dockerhubpwd}'
+          }
+          sh 'docker push ilimbani/dmain'
+          }
+
+
+}
+}
+}
+}
