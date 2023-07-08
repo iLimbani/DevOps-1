@@ -10,16 +10,17 @@ pipeline {
            
       stage('Build docker image') {
         steps {
-          sh 'docker build -t ilimbani/dmain .'
+            withCredentials([string(credentialsId: 'dockerhub-pwd', variable: 'dockerhubpwd')]){
+            sh 'docker login -u ilimbani -p ${dockerhubpwd}'          
+            sh 'docker build -t ilimbani/dmain .'
           }
       }
 
 stage('push docker image to hub') {
         steps {
-          
             withCredentials([string(credentialsId: 'dockerhub-pwd', variable: 'dockerhubpwd')]){
             sh 'docker login -u ilimbani -p ${dockerhubpwd}'
-                  sh 'docker push ilimbani/dmain'
+            sh 'docker push ilimbani/dmain'
           }
 
 
