@@ -1,6 +1,9 @@
 pipeline {
     agent any
-     
+     environment {
+       AWS_ACCESS_KEY_ID     = credentials('6f410453-049f-4225-b222-d37b7083116a')
+       AWS_SECRET_ACCESS_KEY = credentials('4d461474-63a5-4cee-8502-c48113b98f9a')
+    }
     stages {
       stage('fetch_latest_code') {
         steps {
