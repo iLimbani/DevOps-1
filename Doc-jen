@@ -1,9 +1,8 @@
 pipeline {
    	    agent any
 	environment {
-	        DOCKER_ID = credentials('DOCKER_ID')
-	        DOCKER_PASSWORD = credentials('DOCKER_PASSWORD')
-	}
+	        DOCKERHUB_CREDENTIALS = credentials('DOCKER_ID_PWD')
+	       }
 
     stages {
 	        stage('fetch-latest-code') {
@@ -23,7 +22,7 @@ pipeline {
 		stage('push docker image to hub') {      
 		steps {
 			script{
-			         sh 'docker login -u ${DOCKER_ID} -p ${DOCKER_PASSWORD}'
+			         sh 'docker login -u ilimbani -p ${DOCKER_ID_PWD}'
 			}       
 				sh 'docker push ilimbani/dmain:dimg1'
 		          }
