@@ -1,8 +1,12 @@
 pipeline {
     agent {
 	Dockerfile true
-	}
-
+	
+environment {
+        DOCKER_ID = credentials('DOCKER_ID')
+        DOCKER_PASSWORD = credentials('DOCKER_PASSWORD')
+}
+}
     stages {
         stage('Checkout') {
             steps {
@@ -18,9 +22,11 @@ pipeline {
 	stage('push docker image to hub') {      
 	steps {
 	script{
-	         withCredentials([string(credentialsId: 'dockerhub-pwd', variable: 'dockerhubpwd')]) {
-	            sh 'docker login -u iLimbani -p ${dockerhubpwd}'
+	         sh 'docker login -u ${DOCKER_ID}iLimbani -p ${DOCKER_PASSWORD}'
 	}       
 	sh 'docker push ilimbani/dmain'
 	          }
 	}
+}
+}
+
