@@ -17,7 +17,7 @@ pipeline {
 		steps {       
 		        sh 'sudo systemctl start docker'
 			sh 'sudo usermod -aG docker ec2-user'
-			sh 'docker build -t ilimbani/dmain:dimg1 .'
+			sh 'sudo docker build -t ilimbani/dmain:dimg1 .'
 		          }
 		      }
 
