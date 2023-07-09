@@ -1,34 +1,31 @@
 pipeline {
-    agent any
-    tools{
-        maven 'maven_3_5_0'
-    }
-    stages{
-        stage('Build Maven'){
-            steps{
-                checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/iLimbani/DevOps-1.git']]])
-                sh 'mvn clean install'
-            }
+	agent none  stages {
+  	stage('Maven Install') {
+    	agent {
+      	docker {
+        	image 'maven:3.5.0'
         }
-      stage('fetch_latest_code') {
-        steps {
-        git branch: 'main', url: 'https://github.com/iLimbani/DevOps-1.git'
-     }
-     }           
+      }
+      steps {
+      	sh 'mvn clean install'
+      }
+    }
      
     stage('Build docker image') {
-        steps {
-    //     withCredentials([string(credentialsId: 'dockerhub-pwd', variable: 'dockerhubpwd')])
-          //  sh 'docker login -u ilimbani -p ${dockerhubpwd}'          
+agent any        
+steps {       
             sh 'docker build -t ilimbani/dmain .'
           }
       }
 
 stage('push docker image to hub') {
-        steps {
-         withCredentials([string(credentialsId: 'dockerhub-pwd', variable: 'dockerhubpwd')])
-            sh 'docker login -u ilimbani -p ${dockerhubpwd}'
-            sh 'docker push ilimbani/dmain'
+agent any         
+steps {
+script{
+         withCredentials([string(credentialsId: 'dockerhub-pwd', variable: 'dockerhubpwd')]) {
+            sh 'docker login -u iLimbani -p ${dockerhubpwd}'
+}       
+sh 'docker push ilimbani/dmain'
           }
 }
 
