@@ -15,7 +15,8 @@ pipeline {
 
 		stage('Build docker image') {      
 		steps {       
-		            sh 'docker build -t ilimbani/dmain:dimg1 .'
+		        sh 'sudo systemctl start docker'		           
+			sh 'docker build -t ilimbani/dmain:dimg1 .'
 		          }
 		      }
 
