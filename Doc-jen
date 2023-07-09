@@ -11,22 +11,27 @@ pipeline {
 	            }
 	        }
 
-		stage('Build docker image') {      
+		stage('Docker start') {      
 		steps {       
 		        sh 'sudo systemctl start docker'
 			sh 'sudo usermod -aG docker ec2-user'
-			sh 'sudo docker build -t ilimbani/dmain:dimg1 .'
-		          }
+			}
 		      }
 
-	//	stage('push docker image to hub') {      
-	//	steps {
-	//		script{
-	//		         sh 'docker login -u ilimbani -p ${DOCKER_ID_PWD}'
-	//		}       
-	//			sh 'docker push ilimbani/dmain:dimg1'
-	//	          }
-	//	}
+      		stage('Build Docker Image') {
+          		steps {
+                			sh 'sudo docker build -t ilimbani/dmain:dimg1 .'
+            		}
+        	}
+
+		stage('push docker image to hub') {      
+		steps {
+			script{
+			         sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+		}       
+				sh 'docker push ilimbani/dmain:dimg1'
+		          }
+		}
 }
 }
 
