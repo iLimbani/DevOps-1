@@ -1,32 +1,32 @@
 pipeline {
-    agent {
-	Dockerfile true
-	
-environment {
-        DOCKER_ID = credentials('DOCKER_ID')
-        DOCKER_PASSWORD = credentials('DOCKER_PASSWORD')
-}
-}
-    stages {
-        stage('Checkout') {
-            steps {
-                git branch: 'main', url: 'https://github.com/iLimbani/DevOps-1.git'
-            }
-        }
-	stage('Build docker image') {      
-	steps {       
-	            sh 'docker build -t ilimbani/dmain .'
-	          }
-	      }
+   	agent any
 
-	stage('push docker image to hub') {      
-	steps {
-	script{
-	         sh 'docker login -u ${DOCKER_ID}iLimbani -p ${DOCKER_PASSWORD}'
-	}       
-	sh 'docker push ilimbani/dmain'
-	          }
+	environment {
+	        DOCKER_ID = credentials('DOCKER_ID')
+	        DOCKER_PASSWORD = credentials('DOCKER_PASSWORD')
 	}
+
+    stages {
+	        stage('fetch-latest-code') {
+	            steps {
+	                git branch: 'main', url: 'https://github.com/iLimbani/DevOps-1.git'
+	            }
+	        }
+
+		stage('Build docker image') {      
+		steps {       
+		            sh 'docker build -t ilimbani/dmain:dimg1 .'
+		          }
+		      }
+
+		stage('push docker image to hub') {      
+		steps {
+			script{
+			         sh 'docker login -u ${DOCKER_ID} -p ${DOCKER_PASSWORD}'
+			}       
+				sh 'docker push ilimbani/dmain'
+		          }
+		}
 }
 }
 
