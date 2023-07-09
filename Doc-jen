@@ -11,12 +11,12 @@ pipeline {
 	            }
 	        }
 
-		stage('Docker start') {      
-		steps {       
-		        sh 'sudo systemctl start docker'
-			sh 'sudo usermod -aG docker ec2-user'
-			}
-		      }
+		//stage('Docker start') {      
+	//	steps {       
+		//        sh 'sudo systemctl start docker'
+		//	sh 'sudo usermod -aG docker ec2-user'
+		//	}
+		  //    }
 
       		stage('Build Docker Image') {
           		steps {
