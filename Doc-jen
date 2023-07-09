@@ -19,14 +19,14 @@ pipeline {
 		          }
 		      }
 
-		stage('push docker image to hub') {      
-		steps {
-			script{
-			         sh 'docker login -u ilimbani -p ${DOCKER_ID_PWD}'
-			}       
-				sh 'docker push ilimbani/dmain:dimg1'
-		          }
-		}
+	//	stage('push docker image to hub') {      
+	//	steps {
+	//		script{
+	//		         sh 'docker login -u ilimbani -p ${DOCKER_ID_PWD}'
+	//		}       
+	//			sh 'docker push ilimbani/dmain:dimg1'
+	//	          }
+	//	}
 }
 }
 
